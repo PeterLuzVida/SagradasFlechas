@@ -251,13 +251,13 @@
   }
 
   .link-card.featured {
-    background: linear-gradient(180deg, rgba(212,168,67,0.06), var(--surface));
-    border-color: rgba(212,168,67,0.18);
-    box-shadow: 0 0 24px -10px rgba(212,168,67,0.35);
+    background: linear-gradient(180deg, color-mix(in srgb, var(--link-accent) 6%, transparent), var(--surface));
+    border-color: color-mix(in srgb, var(--link-accent) 18%, transparent);
+    box-shadow: 0 0 24px -10px color-mix(in srgb, var(--link-accent) 35%, transparent);
   }
 
   .link-card.featured:hover {
-    box-shadow: 0 8px 34px -8px rgba(212,168,67,0.5);
+    box-shadow: 0 8px 34px -8px color-mix(in srgb, var(--link-accent) 50%, transparent);
   }
 
   .link-card.disabled {
