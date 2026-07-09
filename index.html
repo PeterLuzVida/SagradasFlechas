@@ -6,164 +6,104 @@
 <title>Peter Novassat</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Sora:wght@300;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #0a0a0f;
-    --surface: rgba(255,255,255,0.03);
-    --surface-hover: rgba(255,255,255,0.07);
+    --card: #14141c;
+    --card-hover: #1a1a24;
+    --text: #f5f5f7;
+    --muted: #8a8a96;
+    --gold: #d4af37;
+    --gold-soft: #e8c870;
+    --yt-red: #FF0000;
+    --spotify-green: #1DB954;
     --border: rgba(255,255,255,0.06);
-    --text-primary: #f1f1f3;
-    --text-secondary: rgba(255,255,255,0.5);
-    --text-tertiary: rgba(255,255,255,0.3);
-    --accent-gradient: linear-gradient(135deg, #d4a373, #e6b980);
-    --accent-amber: #d4a373;
-    --accent-amber-light: #e6b980;
   }
 
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
 
   html, body {
     background: var(--bg);
-    color: var(--text-primary);
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    color: var(--text);
+    font-family: 'Inter', system-ui, sans-serif;
     min-height: 100vh;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
   }
 
-  /* Animated background blobs */
-  .bg-blobs {
+  /* Animated blobs */
+  .blobs {
     position: fixed;
     inset: 0;
     z-index: 0;
     overflow: hidden;
     pointer-events: none;
   }
-
   .blob {
     position: absolute;
     border-radius: 50%;
     filter: blur(90px);
     opacity: 0.35;
-    will-change: transform;
+    animation: float 18s ease-in-out infinite;
+  }
+  .blob.warm {
+    width: 340px; height: 340px;
+    background: radial-gradient(circle, #b8651a, transparent 70%);
+    top: -80px; left: -100px;
+  }
+  .blob.blue {
+    width: 380px; height: 380px;
+    background: radial-gradient(circle, #1f3a6b, transparent 70%);
+    bottom: -120px; right: -120px;
+    animation-delay: -9s;
+  }
+  @keyframes float {
+    0%, 100% { transform: translate(0,0) scale(1); }
+    50% { transform: translate(30px, 40px) scale(1.1); }
   }
 
-  .blob-1 {
-    width: 380px;
-    height: 380px;
-    background: radial-gradient(circle, rgba(212,163,115,0.55), transparent 70%);
-    top: -80px;
-    left: -60px;
-    animation: drift1 18s ease-in-out infinite alternate;
-  }
-
-  .blob-2 {
-    width: 420px;
-    height: 420px;
-    background: radial-gradient(circle, rgba(230,185,128,0.4), transparent 70%);
-    bottom: -120px;
-    right: -80px;
-    animation: drift2 22s ease-in-out infinite alternate;
-  }
-
-  @keyframes drift1 {
-    0%   { transform: translate(0, 0) scale(1); }
-    100% { transform: translate(60px, 80px) scale(1.15); }
-  }
-
-  @keyframes drift2 {
-    0%   { transform: translate(0, 0) scale(1); }
-    100% { transform: translate(-50px, -60px) scale(1.1); }
-  }
-
-  /* Container */
   .container {
     position: relative;
     z-index: 1;
     max-width: 480px;
     margin: 0 auto;
-    padding: 48px 24px 40px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-height: 100vh;
+    padding: 48px 24px 64px;
   }
 
   /* Profile */
   .profile {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     text-align: center;
-    margin-bottom: 28px;
-    opacity: 0;
-    animation: fadeUp 0.7s ease forwards;
-    animation-delay: 0.05s;
+    margin-bottom: 36px;
   }
-
-  .avatar-wrap {
-    position: relative;
-    width: 112px;
-    height: 112px;
-    margin-bottom: 20px;
-  }
-
   .avatar-ring {
-    position: absolute;
-    inset: 0;
+    width: 112px; height: 112px;
+    margin: 0 auto 18px;
     border-radius: 50%;
-    background: var(--accent-gradient);
-    padding: 2px;
-    transition: box-shadow 0.3s ease;
+    padding: 3px;
+    background: conic-gradient(from 180deg, var(--gold), var(--gold-soft), #fff3c4, var(--gold), var(--gold-soft));
+    box-shadow: 0 8px 30px rgba(212,175,55,0.25);
   }
-
-  .avatar-ring::after {
-    content: '';
-    position: absolute;
-    inset: -6px;
-    border-radius: 50%;
-    border: 1px solid rgba(212,163,115,0.25);
-    animation: pulseRing 3s ease-in-out infinite;
-  }
-
-  .avatar-wrap:hover .avatar-ring {
-    box-shadow: 0 0 28px rgba(212,163,115,0.45);
-  }
-
-  @keyframes pulseRing {
-    0%, 100% { transform: scale(1); opacity: 0.6; }
-    50%      { transform: scale(1.08); opacity: 0.2; }
-  }
-
-  .avatar-img {
-    width: 100%;
-    height: 100%;
+  .avatar-ring img {
+    width: 100%; height: 100%;
     border-radius: 50%;
     object-fit: cover;
+    border: 3px solid var(--bg);
     display: block;
   }
-
   .name {
     font-family: 'Sora', sans-serif;
-    font-weight: 300;
-    font-size: clamp(26px, 7vw, 32px);
+    font-weight: 700;
+    font-size: 26px;
     letter-spacing: -0.02em;
-    line-height: 1.1;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
   }
-
   .tagline {
-    font-size: clamp(13px, 3.5vw, 14px);
-    color: var(--text-secondary);
-    font-weight: 400;
+    color: var(--muted);
+    font-size: 14px;
     line-height: 1.5;
     max-width: 320px;
+    margin: 0 auto;
   }
 
   /* Divider */
@@ -171,332 +111,263 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100%;
-    margin: 8px 0 24px;
     gap: 12px;
-    opacity: 0;
-    animation: fadeUp 0.7s ease forwards;
-    animation-delay: 0.15s;
+    margin: 28px 0 24px;
   }
-
-  .divider-line {
-    flex: 1;
+  .divider .line {
     height: 1px;
+    flex: 1;
     background: linear-gradient(90deg, transparent, var(--border), transparent);
   }
-
-  .divider-dot {
-    width: 6px;
-    height: 6px;
-    background: var(--accent-gradient);
+  .diamond {
+    width: 7px; height: 7px;
+    background: var(--gold);
     transform: rotate(45deg);
-    border-radius: 1px;
+    box-shadow: 0 0 8px rgba(212,175,55,0.6);
   }
 
   /* Links */
   .links {
-    width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 14px;
   }
 
   .link-card {
-    --link-accent: #d4a373;
     position: relative;
     display: flex;
     align-items: center;
     gap: 14px;
-    width: 100%;
-    min-height: 64px;
-    padding: 16px 18px 16px 21px;
-    background: var(--surface);
+    background: var(--card);
     border: 1px solid var(--border);
-    border-radius: 14px;
+    border-radius: 16px;
+    padding: 16px 18px;
     text-decoration: none;
-    color: var(--text-primary);
-    transition: transform 0.3s ease, background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    opacity: 0;
-    animation: fadeUp 0.6s ease forwards;
-  }
-
-  .link-card:nth-child(1) { animation-delay: 0.25s; }
-  .link-card:nth-child(2) { animation-delay: 0.35s; }
-  .link-card:nth-child(3) { animation-delay: 0.45s; }
-
-  .link-card::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 14px;
-    bottom: 14px;
-    width: 3px;
-    background: var(--link-accent);
-    border-radius: 0 3px 3px 0;
-    opacity: 0.85;
+    color: var(--text);
+    overflow: hidden;
+    transition: transform 0.3s cubic-bezier(.2,.8,.2,1), box-shadow 0.3s, background 0.3s, border-color 0.3s;
   }
 
   .link-card:hover {
-    background: var(--surface-hover);
-    border-color: rgba(255,255,255,0.1);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 30px -8px color-mix(in srgb, var(--link-accent) 40%, transparent);
+    transform: translateY(-3px);
+    background: var(--card-hover);
   }
 
-  .link-card:focus-visible {
-    outline: 2px solid var(--link-accent);
-    outline-offset: 3px;
+  /* Diagonal YouTube corner */
+  .yt-corner {
+    position: absolute;
+    top: 0; right: 0;
+    width: 64px; height: 64px;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .yt-corner::before {
+    content: "";
+    position: absolute;
+    top: -32px; right: -32px;
+    width: 90px; height: 90px;
+    background: var(--yt-red);
+    transform: rotate(45deg);
+    opacity: 0.55;
+    transition: opacity 0.3s, box-shadow 0.3s;
+  }
+  .yt-corner span {
+    position: absolute;
+    top: 9px; right: 4px;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: #fff;
+    transform: rotate(45deg);
+    text-transform: uppercase;
+    opacity: 0.9;
+  }
+  .link-card.yt:hover .yt-corner::before {
+    opacity: 0.95;
+    box-shadow: 0 0 24px rgba(255,0,0,0.55);
   }
 
-  .link-card.featured {
-    background: linear-gradient(180deg, rgba(212,168,67,0.06), var(--surface));
-    border-color: rgba(212,168,67,0.18);
-    box-shadow: 0 0 24px -10px rgba(212,168,67,0.35);
-  }
-
-  .link-card.featured:hover {
-    box-shadow: 0 8px 34px -8px rgba(212,168,67,0.5);
-  }
-
-  .link-card.disabled {
-    --link-accent: #1DB954;
-    cursor: not-allowed;
-    opacity: 0.65;
-  }
-
-  .link-card.disabled:hover {
-    transform: none;
-    background: var(--surface);
-    border-color: var(--border);
-    box-shadow: none;
-  }
-
+  /* Icon */
   .link-icon {
     flex-shrink: 0;
-    width: 42px;
-    height: 42px;
+    width: 46px; height: 46px;
+    border-radius: 13px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 11px;
-    background: color-mix(in srgb, var(--link-accent) 12%, transparent);
-    color: var(--link-accent);
+    position: relative;
+    z-index: 1;
+  }
+  .link-icon svg { width: 22px; height: 22px; }
+
+  .yt .link-icon {
+    background: var(--yt-red);
+    box-shadow: 0 4px 14px rgba(255,0,0,0.3);
   }
 
-  .link-icon svg {
-    width: 22px;
-    height: 22px;
-  }
-
-  .link-content {
+  .link-body {
     flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
     min-width: 0;
+    position: relative;
+    z-index: 1;
   }
-
-  .link-title-row {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
   .link-title {
-    font-size: 15px;
+    font-family: 'Sora', sans-serif;
     font-weight: 600;
+    font-size: 15.5px;
     letter-spacing: -0.01em;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    margin-bottom: 2px;
   }
-
   .link-subtitle {
+    color: var(--muted);
     font-size: 12.5px;
-    color: var(--text-secondary);
-    font-weight: 400;
+    font-weight: 500;
   }
 
   .badge {
-    flex-shrink: 0;
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.04em;
+    position: absolute;
+    top: 12px; left: 12px;
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
     padding: 3px 8px;
     border-radius: 6px;
-    color: var(--link-accent);
-    background: color-mix(in srgb, var(--link-accent) 14%, transparent);
-    border: 1px solid color-mix(in srgb, var(--link-accent) 25%, transparent);
+    z-index: 2;
+  }
+  .badge.featured {
+    background: rgba(255,0,0,0.15);
+    color: #ff6b6b;
+    border: 1px solid rgba(255,0,0,0.3);
+  }
+  .badge.soon {
+    background: rgba(29,185,84,0.15);
+    color: #4fd98a;
+    border: 1px solid rgba(29,185,84,0.3);
   }
 
-  .link-arrow {
+  .arrow {
     flex-shrink: 0;
-    color: var(--text-tertiary);
-    transition: transform 0.3s ease, color 0.3s ease;
+    color: var(--muted);
+    transition: transform 0.3s, color 0.3s;
+    position: relative;
+    z-index: 1;
   }
-
-  .link-arrow svg {
-    width: 18px;
-    height: 18px;
-    display: block;
-  }
-
-  .link-card:not(.disabled):hover .link-arrow {
+  .link-card:hover .arrow {
     transform: translateX(4px);
-    color: var(--link-accent);
+    color: var(--text);
   }
+
+  /* Featured card */
+  .link-card.featured {
+    background: linear-gradient(180deg, #1a1212, var(--card));
+    border-color: rgba(255,0,0,0.25);
+    box-shadow: 0 8px 30px rgba(255,0,0,0.12);
+  }
+  .link-card.featured:hover {
+    box-shadow: 0 14px 40px rgba(255,0,0,0.22);
+    border-color: rgba(255,0,0,0.4);
+  }
+  .link-card.featured .yt-corner::before {
+    opacity: 0.75;
+  }
+
+  /* Spotify / disabled */
+  .link-card.spotify {
+    background: #101410;
+    border-color: rgba(29,185,84,0.18);
+    opacity: 0.78;
+    cursor: not-allowed;
+  }
+  .link-card.spotify:hover {
+    transform: none;
+    background: #101410;
+  }
+  .link-card.spotify .link-icon {
+    background: var(--spotify-green);
+    box-shadow: 0 4px 14px rgba(29,185,84,0.25);
+  }
+  .link-card.spotify .arrow { color: rgba(29,185,84,0.5); }
 
   /* Footer */
   .footer {
-    margin-top: 36px;
     text-align: center;
-    opacity: 0;
-    animation: fadeUp 0.7s ease forwards;
-    animation-delay: 0.6s;
-  }
-
-  .footer-phrase {
+    margin-top: 40px;
+    color: var(--muted);
     font-size: 12.5px;
-    color: var(--text-tertiary);
-    font-weight: 400;
     line-height: 1.6;
-    max-width: 280px;
-    margin: 0 auto;
+    font-style: italic;
+    opacity: 0.8;
   }
-
-  .footer-mark {
-    margin-top: 10px;
-    width: 24px;
-    height: 1px;
-    background: var(--accent-gradient);
-    margin-left: auto;
-    margin-right: auto;
-    opacity: 0.5;
-  }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(12px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
-      animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
-    }
-  }
+  .footer .heart { color: var(--gold); font-style: normal; }
 </style>
 </head>
 <body>
-
-  <div class="bg-blobs" aria-hidden="true">
-    <div class="blob blob-1"></div>
-    <div class="blob blob-2"></div>
+  <div class="blobs">
+    <div class="blob warm"></div>
+    <div class="blob blue"></div>
   </div>
 
   <main class="container">
-
     <section class="profile">
-      <div class="avatar-wrap">
-        <div class="avatar-ring">
-          <img class="avatar-img" src="profile.png" alt="Peter Novassat">
-        </div>
+      <div class="avatar-ring">
+        <img src="profile.jpg" alt="Peter Novassat">
       </div>
       <h1 class="name">Peter Novassat</h1>
-      <p class="tagline">Música, fé e criatividade — todos os meus projetos num só lugar.</p>
+      <p class="tagline">Projetos católicos, música gerada por IA e canções que tocam a alma.</p>
     </section>
 
-    <div class="divider" aria-hidden="true">
-      <span class="divider-line"></span>
-      <span class="divider-dot"></span>
-      <span class="divider-line"></span>
+    <div class="divider">
+      <div class="line"></div>
+      <div class="diamond"></div>
+      <div class="line"></div>
     </div>
 
-    <nav class="links" aria-label="Links">
-
-      <a class="link-card featured" href="https://www.youtube.com/@SagradasFlechas" target="_blank" rel="noopener noreferrer" style="--link-accent: #D4A843;">
-        <span class="link-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M9 18V5l12-2v13"/>
-            <circle cx="6" cy="18" r="3"/>
-            <circle cx="18" cy="16" r="3"/>
-          </svg>
-        </span>
-        <span class="link-content">
-          <span class="link-title-row">
-            <span class="link-title">Sagradas Flechas</span>
-            <span class="badge">Destaque</span>
-          </span>
-          <span class="link-subtitle">YouTube</span>
-        </span>
-        <span class="link-arrow" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M5 12h14"/>
-            <path d="M12 5l7 7-7 7"/>
-          </svg>
-        </span>
+    <section class="links">
+      <a href="#" class="link-card yt featured">
+        <span class="badge featured">Destaque</span>
+        <div class="yt-corner"><span>YouTube</span></div>
+        <div class="link-icon">
+          <svg viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
+        </div>
+        <div class="link-body">
+          <div class="link-title">Sagradas Flechas</div>
+          <div class="link-subtitle">YouTube</div>
+        </div>
+        <svg class="arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
       </a>
 
-      <a class="link-card" href="https://www.youtube.com/@CatholicAIMusic" target="_blank" rel="noopener noreferrer" style="--link-accent: #60A5FA;">
-        <span class="link-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M9 18V5l12-2v13"/>
-            <circle cx="6" cy="18" r="3"/>
-            <circle cx="18" cy="16" r="3"/>
-          </svg>
-        </span>
-        <span class="link-content">
-          <span class="link-title-row">
-            <span class="link-title">Catholic AI Music</span>
-          </span>
-          <span class="link-subtitle">YouTube</span>
-        </span>
-        <span class="link-arrow" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M5 12h14"/>
-            <path d="M12 5l7 7-7 7"/>
-          </svg>
-        </span>
+      <a href="#" class="link-card yt">
+        <div class="yt-corner"><span>YouTube</span></div>
+        <div class="link-icon">
+          <svg viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
+        </div>
+        <div class="link-body">
+          <div class="link-title">Catholic AI Music</div>
+          <div class="link-subtitle">YouTube</div>
+        </div>
+        <svg class="arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
       </a>
 
-      <div class="link-card disabled" aria-disabled="true" style="--link-accent: #1DB954;">
-        <span class="link-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M2 12h2"/>
-            <path d="M6 8v8"/>
-            <path d="M10 4v16"/>
-            <path d="M14 8v8"/>
-            <path d="M18 6v12"/>
-            <path d="M22 12h-2"/>
+      <div class="link-card spotify">
+        <span class="badge soon">Em breve</span>
+        <div class="link-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2 12h2M6 8v8M10 5v14M14 8v8M18 11v2M22 12h0"/>
           </svg>
-        </span>
-        <span class="link-content">
-          <span class="link-title-row">
-            <span class="link-title">Spotify</span>
-            <span class="badge">Em breve</span>
-          </span>
-          <span class="link-subtitle">Em breve</span>
-        </span>
-        <span class="link-arrow" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M5 12h14"/>
-            <path d="M12 5l7 7-7 7"/>
-          </svg>
-        </span>
+        </div>
+        <div class="link-body">
+          <div class="link-title">Spotify</div>
+          <div class="link-subtitle">Plataforma de streaming</div>
+        </div>
+        <svg class="arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
       </div>
-
-    </nav>
+    </section>
 
     <footer class="footer">
-      <p class="footer-phrase">\"Cantai ao Senhor um cântico novo.\"<br>Salmo 95(96),1</p>
-      <div class="footer-mark" aria-hidden="true"></div>
+      "Tudo posso naquele que me fortalece." <span class="heart">✦</span><br>
+      Que a música seja ponte entre o céu e o coração.
     </footer>
-
   </main>
-
 </body>
 </html>
