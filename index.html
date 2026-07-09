@@ -3,26 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Peter Luz · Links</title>
-<meta name="description" content="Peter Luz — criador. Um hub pessoal com todos os projetos em um só lugar.">
+<title>Peter Novassat</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Sora:wght@300;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #0a0a0f;
-    --surface: rgba(255, 255, 255, 0.03);
-    --surface-hover: rgba(255, 255, 255, 0.07);
-    --border: rgba(255, 255, 255, 0.06);
-    --border-hover: rgba(255, 255, 255, 0.14);
+    --surface: rgba(255,255,255,0.03);
+    --surface-hover: rgba(255,255,255,0.07);
+    --border: rgba(255,255,255,0.06);
     --text-primary: #f1f1f3;
-    --text-secondary: rgba(255, 255, 255, 0.5);
-    --text-tertiary: rgba(255, 255, 255, 0.3);
-    --accent-1: #d4a373;
-    --accent-2: #e6b980;
+    --text-secondary: rgba(255,255,255,0.5);
+    --text-tertiary: rgba(255,255,255,0.3);
     --accent-gradient: linear-gradient(135deg, #d4a373, #e6b980);
-    --radius: 14px;
-    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    --accent-amber: #d4a373;
+    --accent-amber-light: #e6b980;
   }
 
   * {
@@ -32,30 +28,17 @@
   }
 
   html, body {
-    min-height: 100%;
-  }
-
-  body {
     background: var(--bg);
     color: var(--text-primary);
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    font-weight: 400;
-    line-height: 1.5;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    min-height: 100vh;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    text-rendering: optimizeLegibility;
     overflow-x: hidden;
-    position: relative;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: clamp(32px, 8vh, 80px) 24px 48px;
   }
 
   /* Animated background blobs */
-  .bg-fx {
+  .bg-blobs {
     position: fixed;
     inset: 0;
     z-index: 0;
@@ -72,42 +55,44 @@
   }
 
   .blob-1 {
-    width: 420px;
-    height: 420px;
-    top: -120px;
-    left: -100px;
-    background: radial-gradient(circle at center, rgba(212, 163, 115, 0.55), transparent 70%);
-    animation: drift1 22s ease-in-out infinite alternate;
+    width: 380px;
+    height: 380px;
+    background: radial-gradient(circle, rgba(212,163,115,0.55), transparent 70%);
+    top: -80px;
+    left: -60px;
+    animation: drift1 18s ease-in-out infinite alternate;
   }
 
   .blob-2 {
-    width: 480px;
-    height: 480px;
-    bottom: -160px;
-    right: -120px;
-    background: radial-gradient(circle at center, rgba(96, 165, 250, 0.32), transparent 70%);
-    animation: drift2 28s ease-in-out infinite alternate;
+    width: 420px;
+    height: 420px;
+    background: radial-gradient(circle, rgba(230,185,128,0.4), transparent 70%);
+    bottom: -120px;
+    right: -80px;
+    animation: drift2 22s ease-in-out infinite alternate;
   }
 
   @keyframes drift1 {
     0%   { transform: translate(0, 0) scale(1); }
-    100% { transform: translate(80px, 60px) scale(1.15); }
+    100% { transform: translate(60px, 80px) scale(1.15); }
   }
 
   @keyframes drift2 {
     0%   { transform: translate(0, 0) scale(1); }
-    100% { transform: translate(-70px, -50px) scale(1.1); }
+    100% { transform: translate(-50px, -60px) scale(1.1); }
   }
 
-  /* Page shell */
-  .shell {
+  /* Container */
+  .container {
     position: relative;
     z-index: 1;
-    width: 100%;
     max-width: 480px;
+    margin: 0 auto;
+    padding: 48px 24px 40px;
     display: flex;
     flex-direction: column;
-    gap: 28px;
+    align-items: center;
+    min-height: 100vh;
   }
 
   /* Profile */
@@ -116,67 +101,68 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
-    gap: 16px;
+    margin-bottom: 28px;
     opacity: 0;
-    transform: translateY(14px);
-    animation: rise 0.7s var(--ease) 0.05s forwards;
+    animation: fadeUp 0.7s ease forwards;
+    animation-delay: 0.05s;
   }
 
-  .avatar {
+  .avatar-wrap {
     position: relative;
-    width: 84px;
-    height: 84px;
-    border-radius: 22px;
-    padding: 2px;
-    background: var(--accent-gradient);
-    display: grid;
-    place-items: center;
+    width: 112px;
+    height: 112px;
+    margin-bottom: 20px;
   }
 
-  .avatar::before {
+  .avatar-ring {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: var(--accent-gradient);
+    padding: 2px;
+    transition: box-shadow 0.3s ease;
+  }
+
+  .avatar-ring::after {
     content: '';
     position: absolute;
     inset: -6px;
-    border-radius: 28px;
-    border: 1px solid rgba(212, 163, 115, 0.35);
-    animation: pulse-ring 3s ease-in-out infinite;
+    border-radius: 50%;
+    border: 1px solid rgba(212,163,115,0.25);
+    animation: pulseRing 3s ease-in-out infinite;
   }
 
-  .avatar-inner {
+  .avatar-wrap:hover .avatar-ring {
+    box-shadow: 0 0 28px rgba(212,163,115,0.45);
+  }
+
+  @keyframes pulseRing {
+    0%, 100% { transform: scale(1); opacity: 0.6; }
+    50%      { transform: scale(1.08); opacity: 0.2; }
+  }
+
+  .avatar-img {
     width: 100%;
     height: 100%;
-    border-radius: 20px;
-    background: #0d0d14;
-    display: grid;
-    place-items: center;
-    font-family: 'Sora', sans-serif;
-    font-weight: 700;
-    font-size: 34px;
-    background-image: var(--accent-gradient);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    letter-spacing: -0.02em;
-  }
-
-  @keyframes pulse-ring {
-    0%, 100% { transform: scale(1); opacity: 0.5; }
-    50%      { transform: scale(1.08); opacity: 0.15; }
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
   }
 
   .name {
     font-family: 'Sora', sans-serif;
     font-weight: 300;
-    font-size: clamp(28px, 7vw, 34px);
+    font-size: clamp(26px, 7vw, 32px);
     letter-spacing: -0.02em;
     line-height: 1.1;
-    color: var(--text-primary);
+    margin-bottom: 8px;
   }
 
   .tagline {
-    font-size: clamp(13px, 3.6vw, 15px);
+    font-size: clamp(13px, 3.5vw, 14px);
     color: var(--text-secondary);
     font-weight: 400;
+    line-height: 1.5;
     max-width: 320px;
   }
 
@@ -185,28 +171,31 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 100%;
+    margin: 8px 0 24px;
     gap: 12px;
     opacity: 0;
-    transform: translateY(10px);
-    animation: rise 0.7s var(--ease) 0.15s forwards;
+    animation: fadeUp 0.7s ease forwards;
+    animation-delay: 0.15s;
   }
 
-  .divider .line {
-    height: 1px;
+  .divider-line {
     flex: 1;
+    height: 1px;
     background: linear-gradient(90deg, transparent, var(--border), transparent);
   }
 
-  .divider .dot {
+  .divider-dot {
     width: 6px;
     height: 6px;
-    transform: rotate(45deg);
     background: var(--accent-gradient);
-    box-shadow: 0 0 12px rgba(212, 163, 115, 0.5);
+    transform: rotate(45deg);
+    border-radius: 1px;
   }
 
   /* Links */
   .links {
+    width: 100%;
     display: flex;
     flex-direction: column;
     gap: 12px;
@@ -220,19 +209,17 @@
     gap: 14px;
     width: 100%;
     min-height: 64px;
-    padding: 16px 18px 16px 22px;
+    padding: 16px 18px 16px 21px;
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: var(--radius);
+    border-radius: 14px;
     text-decoration: none;
-    color: inherit;
-    cursor: pointer;
-    transition: transform 0.3s var(--ease), background 0.3s var(--ease),
-                border-color 0.3s var(--ease), box-shadow 0.3s var(--ease);
-    overflow: hidden;
+    color: var(--text-primary);
+    transition: transform 0.3s ease, background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     opacity: 0;
-    transform: translateY(14px);
-    animation: rise 0.6s var(--ease) forwards;
+    animation: fadeUp 0.6s ease forwards;
   }
 
   .link-card:nth-child(1) { animation-delay: 0.25s; }
@@ -243,30 +230,19 @@
     content: '';
     position: absolute;
     left: 0;
-    top: 10px;
-    bottom: 10px;
+    top: 14px;
+    bottom: 14px;
     width: 3px;
-    border-radius: 0 3px 3px 0;
     background: var(--link-accent);
+    border-radius: 0 3px 3px 0;
     opacity: 0.85;
-    transition: opacity 0.3s var(--ease), box-shadow 0.3s var(--ease);
   }
 
   .link-card:hover {
-    transform: translateY(-2px);
     background: var(--surface-hover);
-    border-color: var(--border-hover);
-    box-shadow: 0 8px 30px -12px var(--link-accent),
-                0 0 0 1px rgba(255, 255, 255, 0.02);
-  }
-
-  .link-card:hover::before {
-    opacity: 1;
-    box-shadow: 0 0 12px var(--link-accent);
-  }
-
-  .link-card:active {
-    transform: translateY(0) scale(0.99);
+    border-color: rgba(255,255,255,0.1);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px -8px color-mix(in srgb, var(--link-accent) 40%, transparent);
   }
 
   .link-card:focus-visible {
@@ -274,23 +250,20 @@
     outline-offset: 3px;
   }
 
-  /* Featured */
   .link-card.featured {
-    background: linear-gradient(180deg, rgba(212, 168, 67, 0.06), var(--surface));
-    border-color: rgba(212, 168, 67, 0.18);
-    box-shadow: 0 0 0 1px rgba(212, 168, 67, 0.05),
-                0 10px 40px -18px rgba(212, 168, 67, 0.5);
+    background: linear-gradient(180deg, rgba(212,168,67,0.06), var(--surface));
+    border-color: rgba(212,168,67,0.18);
+    box-shadow: 0 0 24px -10px rgba(212,168,67,0.35);
   }
 
   .link-card.featured:hover {
-    box-shadow: 0 0 0 1px rgba(212, 168, 67, 0.12),
-                0 14px 44px -16px rgba(212, 168, 67, 0.55);
+    box-shadow: 0 8px 34px -8px rgba(212,168,67,0.5);
   }
 
-  /* Disabled / coming soon */
   .link-card.disabled {
+    --link-accent: #1DB954;
     cursor: not-allowed;
-    opacity: 0.7;
+    opacity: 0.65;
   }
 
   .link-card.disabled:hover {
@@ -300,41 +273,24 @@
     box-shadow: none;
   }
 
-  .link-card.disabled:hover::before {
-    box-shadow: none;
-    opacity: 0.85;
-  }
-
-  .link-card.disabled:focus-visible {
-    outline: 2px solid var(--link-accent);
-    outline-offset: 3px;
-  }
-
-  .icon-wrap {
+  .link-icon {
     flex-shrink: 0;
-    width: 40px;
-    height: 40px;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border-radius: 11px;
-    display: grid;
-    place-items: center;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid var(--border);
-    color: var(--link-accent);
-    transition: background 0.3s var(--ease), border-color 0.3s var(--ease);
-  }
-
-  .link-card:hover .icon-wrap {
     background: color-mix(in srgb, var(--link-accent) 12%, transparent);
-    border-color: color-mix(in srgb, var(--link-accent) 30%, transparent);
+    color: var(--link-accent);
   }
 
-  .icon-wrap svg {
-    width: 20px;
-    height: 20px;
-    display: block;
+  .link-icon svg {
+    width: 22px;
+    height: 22px;
   }
 
-  .text-group {
+  .link-content {
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -342,10 +298,15 @@
     min-width: 0;
   }
 
+  .link-title-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
   .link-title {
-    font-size: clamp(15px, 4.2vw, 16px);
+    font-size: 15px;
     font-weight: 600;
-    color: var(--text-primary);
     letter-spacing: -0.01em;
     white-space: nowrap;
     overflow: hidden;
@@ -353,179 +314,189 @@
   }
 
   .link-subtitle {
-    font-size: clamp(12px, 3.4vw, 13px);
-    font-weight: 400;
+    font-size: 12.5px;
     color: var(--text-secondary);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    font-weight: 400;
   }
 
   .badge {
     flex-shrink: 0;
-    font-size: 10.5px;
+    font-size: 10px;
     font-weight: 600;
     letter-spacing: 0.04em;
     text-transform: uppercase;
-    padding: 4px 9px;
-    border-radius: 999px;
-    background: color-mix(in srgb, var(--link-accent) 14%, transparent);
+    padding: 3px 8px;
+    border-radius: 6px;
     color: var(--link-accent);
-    border: 1px solid color-mix(in srgb, var(--link-accent) 28%, transparent);
+    background: color-mix(in srgb, var(--link-accent) 14%, transparent);
+    border: 1px solid color-mix(in srgb, var(--link-accent) 25%, transparent);
   }
 
-  .arrow {
+  .link-arrow {
     flex-shrink: 0;
     color: var(--text-tertiary);
-    transition: transform 0.3s var(--ease), color 0.3s var(--ease);
+    transition: transform 0.3s ease, color 0.3s ease;
   }
 
-  .arrow svg {
+  .link-arrow svg {
     width: 18px;
     height: 18px;
     display: block;
   }
 
-  .link-card:hover .arrow {
+  .link-card:not(.disabled):hover .link-arrow {
     transform: translateX(4px);
     color: var(--link-accent);
   }
 
-  .link-card.disabled:hover .arrow {
-    transform: none;
-    color: var(--text-tertiary);
-  }
-
   /* Footer */
   .footer {
-    margin-top: 8px;
+    margin-top: 36px;
     text-align: center;
     opacity: 0;
-    transform: translateY(10px);
-    animation: rise 0.7s var(--ease) 0.6s forwards;
+    animation: fadeUp 0.7s ease forwards;
+    animation-delay: 0.6s;
   }
 
   .footer-phrase {
-    font-size: clamp(12px, 3.4vw, 13px);
+    font-size: 12.5px;
     color: var(--text-tertiary);
     font-weight: 400;
-    letter-spacing: 0.01em;
+    line-height: 1.6;
+    max-width: 280px;
+    margin: 0 auto;
   }
 
-  .footer-accent {
+  .footer-mark {
+    margin-top: 10px;
+    width: 24px;
+    height: 1px;
     background: var(--accent-gradient);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    font-weight: 500;
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 0.5;
   }
 
-  @keyframes rise {
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
   }
 
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
-      animation-duration: 0.001ms !important;
+      animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;
-      transition-duration: 0.001ms !important;
+      transition-duration: 0.01ms !important;
     }
-    .blob { display: none; }
   }
 </style>
 </head>
 <body>
-  <div class="bg-fx" aria-hidden="true">
+
+  <div class="bg-blobs" aria-hidden="true">
     <div class="blob blob-1"></div>
     <div class="blob blob-2"></div>
   </div>
 
-  <main class="shell">
-    <header class="profile">
-      <div class="avatar" aria-hidden="true">
-        <div class="avatar-inner">P</div>
+  <main class="container">
+
+    <section class="profile">
+      <div class="avatar-wrap">
+        <div class="avatar-ring">
+          <img class="avatar-img" src="profile.jpg" alt="Peter Novassat">
+        </div>
       </div>
-      <h1 class="name">Peter Luz</h1>
-      <p class="tagline">Criador. Música, fé e tecnologia — todos os projetos em um só lugar.</p>
-    </header>
+      <h1 class="name">Peter Novassat</h1>
+      <p class="tagline">Música, fé e criatividade — todos os meus projetos num só lugar.</p>
+    </section>
 
     <div class="divider" aria-hidden="true">
-      <span class="line"></span>
-      <span class="dot"></span>
-      <span class="line"></span>
+      <span class="divider-line"></span>
+      <span class="divider-dot"></span>
+      <span class="divider-line"></span>
     </div>
 
     <nav class="links" aria-label="Links">
+
       <a class="link-card featured" href="https://www.youtube.com/@SagradasFlechas" target="_blank" rel="noopener noreferrer" style="--link-accent: #D4A843;">
-        <span class="icon-wrap" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <span class="link-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M9 18V5l12-2v13"/>
             <circle cx="6" cy="18" r="3"/>
             <circle cx="18" cy="16" r="3"/>
           </svg>
         </span>
-        <span class="text-group">
-          <span class="link-title">Sagradas Flechas</span>
-          <span class="link-subtitle">YouTube · Música &amp; espiritualidade</span>
+        <span class="link-content">
+          <span class="link-title-row">
+            <span class="link-title">Sagradas Flechas</span>
+            <span class="badge">Destaque</span>
+          </span>
+          <span class="link-subtitle">YouTube</span>
         </span>
-        <span class="badge">Destaque</span>
-        <span class="arrow" aria-hidden="true">
+        <span class="link-arrow" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M5 12h14"/>
-            <path d="M13 6l6 6-6 6"/>
+            <path d="M12 5l7 7-7 7"/>
           </svg>
         </span>
       </a>
 
       <a class="link-card" href="https://www.youtube.com/@CatholicAIMusic" target="_blank" rel="noopener noreferrer" style="--link-accent: #60A5FA;">
-        <span class="icon-wrap" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <span class="link-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M9 18V5l12-2v13"/>
             <circle cx="6" cy="18" r="3"/>
             <circle cx="18" cy="16" r="3"/>
           </svg>
         </span>
-        <span class="text-group">
-          <span class="link-title">Catholic AI Music</span>
-          <span class="link-subtitle">YouTube · Música gerada por IA</span>
+        <span class="link-content">
+          <span class="link-title-row">
+            <span class="link-title">Catholic AI Music</span>
+          </span>
+          <span class="link-subtitle">YouTube</span>
         </span>
-        <span class="arrow" aria-hidden="true">
+        <span class="link-arrow" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M5 12h14"/>
-            <path d="M13 6l6 6-6 6"/>
+            <path d="M12 5l7 7-7 7"/>
           </svg>
         </span>
       </a>
 
-      <div class="link-card disabled" aria-disabled="true" role="link" tabindex="0" style="--link-accent: #1DB954;">
-        <span class="icon-wrap" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="9"/>
-            <path d="M7 9.5c2.5-1 7.5-1 10 1.5"/>
-            <path d="M7.5 13c2-0.8 6-0.8 8 1.2"/>
-            <path d="M8 16.5c1.5-0.6 4.5-0.6 6 0.8"/>
+      <div class="link-card disabled" aria-disabled="true" style="--link-accent: #1DB954;">
+        <span class="link-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2 12h2"/>
+            <path d="M6 8v8"/>
+            <path d="M10 4v16"/>
+            <path d="M14 8v8"/>
+            <path d="M18 6v12"/>
+            <path d="M22 12h-2"/>
           </svg>
         </span>
-        <span class="text-group">
-          <span class="link-title">Spotify</span>
-          <span class="link-subtitle">Streaming · em breve</span>
+        <span class="link-content">
+          <span class="link-title-row">
+            <span class="link-title">Spotify</span>
+            <span class="badge">Em breve</span>
+          </span>
+          <span class="link-subtitle">Em breve</span>
         </span>
-        <span class="badge">Em breve</span>
-        <span class="arrow" aria-hidden="true">
+        <span class="link-arrow" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M5 12h14"/>
-            <path d="M13 6l6 6-6 6"/>
+            <path d="M12 5l7 7-7 7"/>
           </svg>
         </span>
       </div>
+
     </nav>
 
     <footer class="footer">
-      <p class="footer-phrase">"Cantai ao Senhor um cântico novo." — <span class="footer-accent">Sl 96</span></p>
+      <p class="footer-phrase">\"Cantai ao Senhor um cântico novo.\"<br>Salmo 95(96),1</p>
+      <div class="footer-mark" aria-hidden="true"></div>
     </footer>
+
   </main>
+
 </body>
 </html>
