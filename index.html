@@ -6,19 +6,21 @@
 <title>Peter Novassat</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Sora:wght@300;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Sora:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0a0a0f;
-    --surface: rgba(255,255,255,0.03);
-    --surface-hover: rgba(255,255,255,0.07);
-    --border: rgba(255,255,255,0.06);
-    --text-primary: #f1f1f3;
-    --text-secondary: rgba(255,255,255,0.5);
-    --text-tertiary: rgba(255,255,255,0.3);
-    --accent-gradient: linear-gradient(135deg, #d4a373, #e6b980);
-    --accent-amber: #d4a373;
-    --accent-amber-light: #e6b980;
+    --bg: #1c1c24;
+    --shadow-dark: #121218;
+    --shadow-light: #282832;
+    --text-primary: #e8e8ec;
+    --text-secondary: rgba(232,232,236,0.55);
+    --text-tertiary: rgba(232,232,236,0.32);
+    --neu-raised: 7px 7px 14px var(--shadow-dark), -7px -7px 14px var(--shadow-light);
+    --neu-raised-sm: 4px 4px 8px var(--shadow-dark), -4px -4px 8px var(--shadow-light);
+    --neu-inset: inset 5px 5px 10px var(--shadow-dark), inset -5px -5px 10px var(--shadow-light);
+    --neu-inset-sm: inset 3px 3px 6px var(--shadow-dark), inset -3px -3px 6px var(--shadow-light);
+    --radius-card: 22px;
+    --radius-icon: 50%;
   }
 
   * {
@@ -37,58 +39,11 @@
     overflow-x: hidden;
   }
 
-  /* Animated background blobs */
-  .bg-blobs {
-    position: fixed;
-    inset: 0;
-    z-index: 0;
-    overflow: hidden;
-    pointer-events: none;
-  }
-
-  .blob {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(90px);
-    opacity: 0.35;
-    will-change: transform;
-  }
-
-  .blob-1 {
-    width: 380px;
-    height: 380px;
-    background: radial-gradient(circle, rgba(212,163,115,0.55), transparent 70%);
-    top: -80px;
-    left: -60px;
-    animation: drift1 18s ease-in-out infinite alternate;
-  }
-
-  .blob-2 {
-    width: 420px;
-    height: 420px;
-    background: radial-gradient(circle, rgba(230,185,128,0.4), transparent 70%);
-    bottom: -120px;
-    right: -80px;
-    animation: drift2 22s ease-in-out infinite alternate;
-  }
-
-  @keyframes drift1 {
-    0%   { transform: translate(0, 0) scale(1); }
-    100% { transform: translate(60px, 80px) scale(1.15); }
-  }
-
-  @keyframes drift2 {
-    0%   { transform: translate(0, 0) scale(1); }
-    100% { transform: translate(-50px, -60px) scale(1.1); }
-  }
-
-  /* Container */
   .container {
     position: relative;
-    z-index: 1;
     max-width: 480px;
     margin: 0 auto;
-    padding: 48px 24px 40px;
+    padding: 52px 24px 44px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -101,44 +56,27 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
-    margin-bottom: 28px;
+    margin-bottom: 32px;
     opacity: 0;
     animation: fadeUp 0.7s ease forwards;
     animation-delay: 0.05s;
   }
 
   .avatar-wrap {
-    position: relative;
-    width: 112px;
-    height: 112px;
-    margin-bottom: 20px;
-  }
-
-  .avatar-ring {
-    position: absolute;
-    inset: 0;
+    width: 118px;
+    height: 118px;
+    margin-bottom: 22px;
     border-radius: 50%;
-    background: var(--accent-gradient);
-    padding: 2px;
+    background: var(--bg);
+    box-shadow: var(--neu-raised);
+    padding: 6px;
     transition: box-shadow 0.3s ease;
   }
 
-  .avatar-ring::after {
-    content: '';
-    position: absolute;
-    inset: -6px;
-    border-radius: 50%;
-    border: 1px solid rgba(212,163,115,0.25);
-    animation: pulseRing 3s ease-in-out infinite;
-  }
-
-  .avatar-wrap:hover .avatar-ring {
-    box-shadow: 0 0 28px rgba(212,163,115,0.45);
-  }
-
-  @keyframes pulseRing {
-    0%, 100% { transform: scale(1); opacity: 0.6; }
-    50%      { transform: scale(1.08); opacity: 0.2; }
+  .avatar-wrap:hover {
+    box-shadow:
+      9px 9px 18px var(--shadow-dark),
+      -9px -9px 18px var(--shadow-light);
   }
 
   .avatar-img {
@@ -147,50 +85,38 @@
     border-radius: 50%;
     object-fit: cover;
     display: block;
+    box-shadow: var(--neu-inset-sm);
   }
 
   .name {
     font-family: 'Sora', sans-serif;
     font-weight: 300;
     font-size: clamp(26px, 7vw, 32px);
-    letter-spacing: -0.02em;
-    line-height: 1.1;
-    margin-bottom: 8px;
+    letter-spacing: 0.02em;
+    line-height: 1.15;
+    margin-bottom: 10px;
   }
 
   .tagline {
     font-size: clamp(13px, 3.5vw, 14px);
     color: var(--text-secondary);
-    font-weight: 400;
-    line-height: 1.5;
-    max-width: 320px;
+    font-weight: 300;
+    line-height: 1.6;
+    max-width: 300px;
+    letter-spacing: 0.01em;
   }
 
   /* Divider */
   .divider {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    margin: 8px 0 24px;
-    gap: 12px;
+    width: 72%;
+    height: 2px;
+    margin: 0 0 28px;
+    border-radius: 2px;
+    background: var(--bg);
+    box-shadow: var(--neu-inset-sm);
     opacity: 0;
     animation: fadeUp 0.7s ease forwards;
     animation-delay: 0.15s;
-  }
-
-  .divider-line {
-    flex: 1;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--border), transparent);
-  }
-
-  .divider-dot {
-    width: 6px;
-    height: 6px;
-    background: var(--accent-gradient);
-    transform: rotate(45deg);
-    border-radius: 1px;
   }
 
   /* Links */
@@ -198,26 +124,25 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 16px;
   }
 
   .link-card {
-    --link-accent: #d4a373;
+    --link-accent: #c8c8d0;
     position: relative;
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 16px;
     width: 100%;
-    min-height: 64px;
-    padding: 16px 18px 16px 21px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 14px;
+    min-height: 72px;
+    padding: 16px 20px;
+    background: var(--bg);
+    border: none;
+    border-radius: var(--radius-card);
     text-decoration: none;
     color: var(--text-primary);
-    transition: transform 0.3s ease, background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    box-shadow: var(--neu-raised-sm);
+    transition: box-shadow 0.25s ease, transform 0.25s ease;
     opacity: 0;
     animation: fadeUp 0.6s ease forwards;
     overflow: hidden;
@@ -233,51 +158,44 @@
   .link-card:nth-child(3) { animation-delay: 0.45s; }
   .link-card:nth-child(4) { animation-delay: 0.55s; }
 
-  .link-card::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 14px;
-    bottom: 14px;
-    width: 3px;
-    background: var(--link-accent);
-    border-radius: 0 3px 3px 0;
-    opacity: 0.85;
+  .link-card:not(.disabled):hover {
+    box-shadow:
+      8px 8px 16px var(--shadow-dark),
+      -8px -8px 16px var(--shadow-light);
+    transform: translateY(-1px);
   }
 
-  .link-card:hover {
-    background: var(--surface-hover);
-    border-color: rgba(255,255,255,0.1);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 30px -8px color-mix(in srgb, var(--link-accent) 40%, transparent);
+  .link-card:not(.disabled):active {
+    box-shadow: var(--neu-inset-sm);
+    transform: translateY(0);
   }
 
   .link-card:focus-visible {
-    outline: 2px solid var(--link-accent);
-    outline-offset: 3px;
+    outline: 2px solid rgba(232,232,236,0.35);
+    outline-offset: 4px;
   }
 
   .link-card.featured {
-    background: linear-gradient(180deg, color-mix(in srgb, var(--link-accent) 6%, transparent), var(--surface));
-    border-color: color-mix(in srgb, var(--link-accent) 18%, transparent);
-    box-shadow: 0 0 24px -10px color-mix(in srgb, var(--link-accent) 35%, transparent);
+    box-shadow:
+      9px 9px 18px var(--shadow-dark),
+      -9px -9px 18px var(--shadow-light);
   }
 
-  .link-card.featured:hover {
-    box-shadow: 0 8px 34px -8px color-mix(in srgb, var(--link-accent) 50%, transparent);
+  .link-card.featured:not(.disabled):hover {
+    box-shadow:
+      11px 11px 22px var(--shadow-dark),
+      -11px -11px 22px var(--shadow-light);
   }
 
   .link-card.disabled {
-    --link-accent: #1DB954;
     cursor: not-allowed;
-    opacity: 0.65;
+    opacity: 0.72;
+    box-shadow: var(--neu-inset-sm);
   }
 
   .link-card.disabled:hover {
     transform: none;
-    background: var(--surface);
-    border-color: var(--border);
-    box-shadow: none;
+    box-shadow: var(--neu-inset-sm);
   }
 
   .link-card.tiktok {
@@ -286,50 +204,45 @@
     --link-accent-secondary: #FE2C55;
   }
 
-  .link-card.tiktok::before {
+  .link-card.tiktok .link-icon--brand {
     background: var(--link-accent-gradient);
-  }
-
-  .link-card.tiktok .link-icon {
-    background: var(--link-accent-gradient);
+    box-shadow: var(--neu-inset-sm);
     color: #fff;
   }
 
   .link-card.tiktok .badge {
     color: var(--link-accent-secondary);
-    background: linear-gradient(135deg, rgba(37,244,238,0.14), rgba(254,44,85,0.14));
-    border-color: rgba(254,44,85,0.28);
   }
 
   .link-card.youtube::after {
     content: '';
     position: absolute;
-    right: -36px;
+    right: -40px;
     top: 50%;
-    width: 168px;
-    height: 118px;
+    width: 160px;
+    height: 112px;
     transform: translateY(-50%) rotate(-22deg);
     background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23FF0000' d='M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814z'/%3E%3Cpath fill='%23fff' d='M9.545 15.568V8.432L15.818 12z'/%3E%3C/svg%3E") center / contain no-repeat;
-    opacity: 0.14;
+    opacity: 0.07;
     pointer-events: none;
     z-index: 0;
-    transition: opacity 0.3s ease, transform 0.3s ease;
+    transition: opacity 0.3s ease;
   }
 
   .link-card.youtube:not(.disabled):hover::after {
-    opacity: 0.22;
-    transform: translateY(-50%) rotate(-18deg) scale(1.04);
+    opacity: 0.1;
   }
 
   .link-icon {
     flex-shrink: 0;
-    width: 42px;
-    height: 42px;
+    width: 48px;
+    height: 48px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 11px;
-    background: color-mix(in srgb, var(--link-accent) 12%, transparent);
+    border-radius: var(--radius-icon);
+    background: var(--bg);
+    box-shadow: var(--neu-inset-sm);
     color: var(--link-accent);
   }
 
@@ -339,11 +252,8 @@
   }
 
   .link-icon--logo {
-    padding: 0;
+    padding: 3px;
     overflow: hidden;
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 50%;
   }
 
   .link-icon--logo img {
@@ -351,10 +261,12 @@
     height: 100%;
     object-fit: cover;
     display: block;
+    border-radius: 50%;
   }
 
-  .link-icon--brand {
-    border-radius: 50%;
+  .link-icon--brand.spotify {
+    color: #1DB954;
+    box-shadow: var(--neu-inset-sm);
   }
 
   .link-icon--brand svg {
@@ -366,91 +278,111 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    gap: 3px;
     min-width: 0;
   }
 
   .link-title-row {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
   }
 
   .link-title {
+    font-family: 'Sora', sans-serif;
     font-size: 15px;
-    font-weight: 600;
-    letter-spacing: -0.01em;
+    font-weight: 400;
+    letter-spacing: 0.01em;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
 
   .link-subtitle {
-    font-size: 12.5px;
+    font-size: 12px;
     color: var(--text-secondary);
-    font-weight: 400;
+    font-weight: 300;
+    letter-spacing: 0.02em;
   }
 
   .badge {
     flex-shrink: 0;
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.04em;
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
-    padding: 3px 8px;
-    border-radius: 6px;
+    padding: 4px 9px;
+    border-radius: 20px;
     color: var(--link-accent);
-    background: color-mix(in srgb, var(--link-accent) 14%, transparent);
-    border: 1px solid color-mix(in srgb, var(--link-accent) 25%, transparent);
+    background: var(--bg);
+    box-shadow: var(--neu-inset-sm);
   }
 
   .link-arrow {
     flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
     color: var(--text-tertiary);
-    transition: transform 0.3s ease, color 0.3s ease;
+    background: var(--bg);
+    box-shadow: var(--neu-raised-sm);
+    transition: box-shadow 0.25s ease, color 0.25s ease, transform 0.25s ease;
   }
 
   .link-arrow svg {
-    width: 18px;
-    height: 18px;
+    width: 16px;
+    height: 16px;
     display: block;
   }
 
   .link-card:not(.disabled):hover .link-arrow {
-    transform: translateX(4px);
-    color: var(--link-accent);
+    transform: translateX(2px);
+    color: var(--text-secondary);
+    box-shadow:
+      5px 5px 10px var(--shadow-dark),
+      -5px -5px 10px var(--shadow-light);
+  }
+
+  .link-card.disabled .link-arrow {
+    box-shadow: var(--neu-inset-sm);
+    opacity: 0.5;
   }
 
   /* Footer */
   .footer {
-    margin-top: 36px;
+    margin-top: 40px;
     text-align: center;
     opacity: 0;
     animation: fadeUp 0.7s ease forwards;
-    animation-delay: 0.6s;
+    animation-delay: 0.65s;
   }
 
   .footer-phrase {
-    font-size: 12.5px;
+    font-size: 12px;
     color: var(--text-tertiary);
-    font-weight: 400;
-    line-height: 1.6;
-    max-width: 280px;
+    font-weight: 300;
+    line-height: 1.7;
+    max-width: 260px;
     margin: 0 auto;
+    letter-spacing: 0.02em;
   }
 
   .footer-mark {
-    margin-top: 10px;
-    width: 24px;
-    height: 1px;
-    background: var(--accent-gradient);
+    margin-top: 14px;
+    width: 40px;
+    height: 3px;
     margin-left: auto;
     margin-right: auto;
-    opacity: 0.5;
+    border-radius: 3px;
+    background: var(--bg);
+    box-shadow: var(--neu-inset-sm);
   }
 
   @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(12px); }
+    from { opacity: 0; transform: translateY(14px); }
     to   { opacity: 1; transform: translateY(0); }
   }
 
@@ -465,28 +397,17 @@
 </head>
 <body>
 
-  <div class="bg-blobs" aria-hidden="true">
-    <div class="blob blob-1"></div>
-    <div class="blob blob-2"></div>
-  </div>
-
   <main class="container">
 
     <section class="profile">
       <div class="avatar-wrap">
-        <div class="avatar-ring">
-          <img class="avatar-img" src="profile.png" alt="Peter Novassat">
-        </div>
+        <img class="avatar-img" src="profile.png" alt="Peter Novassat">
       </div>
       <h1 class="name">Peter Novassat</h1>
       <p class="tagline">Música, fé e criatividade — todos os meus projetos num só lugar.</p>
     </section>
 
-    <div class="divider" aria-hidden="true">
-      <span class="divider-line"></span>
-      <span class="divider-dot"></span>
-      <span class="divider-line"></span>
-    </div>
+    <div class="divider" aria-hidden="true"></div>
 
     <nav class="links" aria-label="Links">
 
@@ -502,7 +423,7 @@
           <span class="link-subtitle">YouTube</span>
         </span>
         <span class="link-arrow" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
             <path d="M5 12h14"/>
             <path d="M12 5l7 7-7 7"/>
           </svg>
@@ -520,7 +441,7 @@
           <span class="link-subtitle">YouTube</span>
         </span>
         <span class="link-arrow" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
             <path d="M5 12h14"/>
             <path d="M12 5l7 7-7 7"/>
           </svg>
@@ -528,7 +449,7 @@
       </a>
 
       <div class="link-card disabled" aria-disabled="true" style="--link-accent: #1DB954;">
-        <span class="link-icon link-icon--brand" aria-hidden="true">
+        <span class="link-icon link-icon--brand spotify" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
             <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
           </svg>
@@ -541,7 +462,7 @@
           <span class="link-subtitle">Em breve</span>
         </span>
         <span class="link-arrow" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
             <path d="M5 12h14"/>
             <path d="M12 5l7 7-7 7"/>
           </svg>
@@ -562,7 +483,7 @@
           <span class="link-subtitle">Em breve</span>
         </span>
         <span class="link-arrow" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
             <path d="M5 12h14"/>
             <path d="M12 5l7 7-7 7"/>
           </svg>
